@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-
 import firebase from '../firebase'
 
 
@@ -13,7 +12,7 @@ const TimesList = () => {
             firebase
                 .firestore()
                 .collection('times')
-                .onSnapshot((snapshot) = {
+                .onSnapshot((snapshot) => {
                     const newTimes = snapshot.docs.map((doc) => ({
                         id: doc.id,
                         ...doc.data()
@@ -27,7 +26,7 @@ const TimesList = () => {
 
 
 
-    const times = useTimes
+    const times = useTimes()
     return (
         <div>
             <h2>Times List</h2>
