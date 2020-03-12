@@ -1,19 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-import firebase from './firebase'
+import TimesList from './components/times-list'
+import AddTimesForm from './components/addTimesForm'
+
+/*import firebase from './firebase' */
 
 
-firebase.firestore().collection('times').add({
+/*firebase.firestore().collection('times').add({
   title: 'XX',
   time_seconds: '00',
-})
+}) */
 
 function App() {
   return (
     <div className="App">
       <h1>Nuevo titulo</h1>
+      <TimesList />
+      <AddTimesForm />
     </div>
   );
 }
