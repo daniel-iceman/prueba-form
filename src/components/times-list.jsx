@@ -2,14 +2,19 @@ import React, { useState, useEffect } from 'react'
 import firebase from '../firebase'
 
 
-
+// Se crea un componente de función
 const TimesList = () => {
-
+    /* Se crea una función que por medio de los "hooks" contenga como variable el nombre de 
+    la "colección" creada en firebase con su respectivo "setNombreDeColección" y el useState
+    contendrá dentro de sus corchetes vacios todo lo que en esta colección se encuentre. */
     function useTimes() {
         const [times, setTimes] = useState([])
-    
+        
+        /* Todo el contenido de "useEffect" sa agrega como parte del "hook" para que se conecte
+        con firebase */
         useEffect(() => {
-            firebase
+            
+            const unsubscribe = firebase  //Para dejar de escuchar variale se ingresa "unsubscribe"
                 .firestore()
                 .collection('times')
                 .onSnapshot((snapshot) => {
@@ -20,13 +25,15 @@ const TimesList = () => {
     
                     setTimes(newTimes)
                 })
+            return () => unsubscribe()
         }, [])
         return times
     }
 
-
-
+    /*Aquí estamos llamando al hook */
     const times = useTimes()
+
+
     return (
         <div>
             <h2>Times List</h2>
@@ -41,7 +48,10 @@ const TimesList = () => {
                 </select>
 
                 <ol>
-                    {times.map((time) =>
+                     {/* Aquí usamos la constante "times" que contiene toda la función "useTimes" 
+                     y le asignamos como parametro (nuevo) time y con este parametro podremos llamar
+                     a cada uno de los "fields" u objetos creados en firebase (ej. id, title etc) */}
+                    {times.map((time) =>    
                     <li key={time.id}>
                         <div className = "time-entry">
                             {time.title}
